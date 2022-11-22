@@ -23,9 +23,9 @@ Albizia julibrissin,,,Alive,"They call me Mimosa, but don't drink me. {address},
 ,,,Alive,"Come see me at {address}, {zip_city}. Your pal {spc_common}"
 ,,,Alive,"I'm your pal {spc_common} at {address}, {zip_city}."
 ,,,Alive,"Come by and tree me sometime. -{spc_common},  {address}, {zip_city}."
-,Good,,Alive,Just another proud  {spc_common} of {zip_city}.
+,Good,,Alive,Just another proud {spc_common} of {zip_city}.
 ,,,Alive,"Can't hide {spc_common} pride. Come see for yourself: {address}, {zip_city}."
-,,,Stump,Who you calling stumpy? I used to be a healthy {spc_common}.
+,,,Stump,"Who you calling stumpy? I used to be a healthy {spc_common}."
 ,,,Stump,"Don't let another tree end up like me. {address}, {zip_city}"
 ,Good,,Alive,"Breathe deep. Celebrate me, your friendly tree. - {spc_common}, {address}, {zip_city}"
 ,,,Alive,"Get back to your roots. Visit me. - {spc_common}, {address}, {zip_city}"
