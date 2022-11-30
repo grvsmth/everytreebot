@@ -19,8 +19,10 @@ import datetime
 import logging
 import pytz
 import twitter_bot_utils as tbu
+
 from . import __version__ as version
 from .everylot import EveryLot
+from .mastodon import send_toot
 
 def badtime(hoursbetween=1, quiethours=None, timezone='US/Eastern', logger=None):
     """
@@ -95,6 +97,8 @@ def main():
     if not args.dry_run:
         logger.debug("posting")
         api.update_status(**update)
+
+        send_toot(api.config['mastodon'], update['status'], image)
         el.mark_as_tweeted()
 
 
