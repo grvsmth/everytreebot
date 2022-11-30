@@ -6,7 +6,7 @@ app: everytree
 
 streetview:
 
-phrasefile: /home/grvsmth/everytreebot/everylot/data/EveryTreeNYC_Phrases.csv
+phrasefile: /path/to/Phrases.csv
 
 hoursbetween: 3
 quiethours: [23, 7]
