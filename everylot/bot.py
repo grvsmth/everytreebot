@@ -103,7 +103,7 @@ def main():
         logger.info(update['status'])
 
         logger.debug("posting")
-        api.update_status(**update)
+#        api.update_status(**update)
 
         send_toot(mastodon, update['status'], mastodon_media_id)
         el.mark_as_tweeted()
