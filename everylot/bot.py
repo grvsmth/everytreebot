@@ -19,8 +19,10 @@ import datetime
 import logging
 import pytz
 import twitter_bot_utils as tbu
+
 from . import __version__ as version
 from .everylot import EveryLot
+from .mastodon import mastodon_instance, mastodon_image, send_toot
 
 def badtime(hoursbetween=1, quiethours=None, timezone='US/Eastern', logger=None):
     """
@@ -49,6 +51,8 @@ def main():
                         help='Python format string use for searching Google')
     parser.add_argument('-p', '--print-format', type=str, default=None,
                         help='Python format string use for poster to Twitter')
+    parser.add_argument('-nq', '--no-quiet', action='store_true')
+
     tbu.args.add_default_args(parser, version=version, include=('config', 'dry-run', 'verbose', 'quiet'))
 
     args = parser.parse_args()
@@ -57,7 +61,8 @@ def main():
     logger = logging.getLogger(args.user)
     logger.debug('everylot starting with %s, %s', args.user, args.database)
 
-    if ('hoursbetween' in api.config or 'quiethours' in api.config) \
+    if (not args.no_quiet and \
+        ('hoursbetween' in api.config or 'quiethours' in api.config)) \
         and badtime(
             api.config['hoursbetween'],
             api.config['quiethours'],
@@ -85,16 +90,22 @@ def main():
 
     # get the streetview image and upload it
     image = el.get_streetview_image(api.config['streetview'])
-    media = api.media_upload('sv.jpg', file=image)
-
-    # compose an update with all the good parameters
-    # including the media string.
-    update = el.compose(media.media_id_string)
-    logger.info(update['status'])
 
     if not args.dry_run:
+        mastodon = mastodon_instance(api.config['mastodon'])
+        mastodon_media_id = mastodon_image(mastodon, image)
+
+        media = api.media_upload('sv.jpg', file=image)
+
+        # compose an update with all the good parameters
+        # including the media string.
+        update = el.compose(media.media_id_string)
+        logger.info(update['status'])
+
         logger.debug("posting")
-        api.update_status(**update)
+#        api.update_status(**update)
+
+        send_toot(mastodon, update['status'], mastodon_media_id)
         el.mark_as_tweeted()
 
 

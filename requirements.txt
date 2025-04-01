@@ -2,8 +2,8 @@
 appdirs==1.4.3
 certifi==2017.4.17
 chardet==3.0.3
-everylot==0.3.0
 idna==2.5
+Mastodon.py==1.6.2
 oauthlib==2.0.2
 packaging==16.8
 pyparsing==2.2.0
